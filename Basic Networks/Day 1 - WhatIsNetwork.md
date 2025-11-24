@@ -102,3 +102,78 @@ Without a gateway → **Internet access is not possible.**
 
 ## 🔗 4. Complete Network Communication Flow
 
+| Component | Role |
+|-----------|------|
+| Device | Generates data |
+| Switch | Connects devices inside LAN |
+| Router | Connects LAN to WAN |
+| Gateway | Provides exit to other networks |
+| Modem | Digital ↔ Analog conversion |
+| ISP | Provides Internet access |
+| Internet | Global network of networks |
+
+---
+
+## 🔧 5. Networking Devices — Quick Overview
+| Device | Purpose |
+|--------|---------|
+| Hub | Broadcasts to all devices (old technology) |
+| Switch | Connects LAN devices using MAC |
+| Router | Connects networks using IP |
+| Gateway | Exit point of the network |
+| Modem | Converts analog ↔ digital for ISP |
+| Access Point | Connects wireless devices |
+| Firewall | Filters traffic for security |
+| Repeater | Boosts weak network signals |
+| Server | Provides services/resources |
+
+---
+
+## 🧠 6. Memory Boost — One-Line Concepts
+| Concept | One-Line Summary |
+|--------|------------------|
+| Networking | Communication between devices |
+| LAN | Small internal network (fast & cheap) |
+| WAN | Large geographic network (Internet) |
+| Switch | Connects LAN devices using MAC |
+| Router | Connects different networks using IP |
+| Gateway | Exit door of the network |
+| Modem | Converts digital ↔ analog |
+| NAT | Converts private IP → public IP |
+| DHCP | Automatically assigns IP addresses |
+
+---
+
+## ✍ 7. Practice Questions (for revision)
+Write answers in notebook / verbally:
+
+1. Define networking in your own words.
+2. Why is LAN faster than WAN?
+3. Why do we need a router if we already have a switch?
+4. What is the role of a gateway?
+5. What happens if the gateway IP is wrong?
+6. Draw your home network layout.
+7. What is the difference between MAC address and IP address?
+
+### 🔥 Bonus Practical
+Open Command Prompt / Terminal:
+
+| OS | Command |
+|----|---------|
+| Windows | `ipconfig` |
+| Linux / Mac | `ifconfig` |
+
+Find:
+- IPv4 Address  
+- Default Gateway  
+→ **That default gateway is your router**
+
+---
+
+### 📌 End of Day-1 — Networking Basics
+🚀 Next: **DAY-2 — OSI Model & Data Encapsulation**
+
+---
+
+
+
