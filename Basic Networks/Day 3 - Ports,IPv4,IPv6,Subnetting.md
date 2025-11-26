@@ -84,12 +84,9 @@ A **protocol** is a set of communication rules.
 - SSH (secure login)
 - TCP/UDP (transport layer)
 
-### 1.6 🔍 Port Scanning (Core Cyber Skill)
+# 🌐 Network Fundamentals & Cybersecurity
 
-#### 🛠️ Popular Port Scanning Tools
-- **Nmap** - Most comprehensive network scanner
-- **Masscan** - Extremely fast Internet-scale scanner
-- **RustScan** - Modern, fast port scanner written in Rust
+## 2. IPv4 Addressing: The Foundation
 
 ### 2.1 Why IPv4 Is Limited
 - **IPv4 = 32-bit addressing**
