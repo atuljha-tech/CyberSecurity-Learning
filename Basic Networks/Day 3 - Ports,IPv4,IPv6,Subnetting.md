@@ -3,18 +3,18 @@
 
 ---
 
-# 📑 Table of Contents
+## 📑 Table of Contents
 1. [Ports & Protocols: The Digital Doors](#1-ports--protocols-the-digital-doors)  
 2. [IPv4 Addressing: The Foundation](#2-ipv4-addressing-the-foundation)  
-3. [IPv4 Crisis & Solutions (NAT & IPv6)](#3-the-ipv4-crisis--solutions-nat--ipv6)  
+3. [IPv4 Crisis & Solutions (NAT & IPv6)](#3-ipv4-crisis--solutions-nat--ipv6)  
 4. [Binary & Decimal Conversion](#4-binary--decimal-conversion-the-language-of-machines)  
 5. [Subnetting: Designing Secure Networks](#5-subnetting-designing-secure-networks)
 
 ---
 
-# 1. Ports & Protocols: The Digital Doors
+## 1. Ports & Protocols: The Digital Doors
 
-## 1.1 What Are Ports?
+### 1.1 What Are Ports?
 A **port** is a logical communication endpoint on a device — like a specific **room number** inside a building.
 
 - **IP Address → Building**
@@ -29,9 +29,7 @@ Used mainly in: **TCP** and **UDP**
 | 1024–49151 | Registered Ports | Applications & vendors |
 | 49152–65535 | Dynamic Ports | Temporary client connections |
 
----
-
-## 1.2 Why Ports Matter in Cybersecurity
+### 1.2 Why Ports Matter in Cybersecurity
 - Every **open port = attack surface**
 - Attackers run **port scans** to detect:
   - Running services  
@@ -44,24 +42,20 @@ Used mainly in: **TCP** and **UDP**
 
 A closed/filtered port → smaller attack surface.
 
----
-
-## 1.3 TCP vs UDP (Cybersecurity View)
+### 1.3 TCP vs UDP (Cybersecurity View)
 
 | Feature | TCP | UDP |
-|--------|-----|-----|
+|---------|-----|-----|
 | Connection | ✔ Connection-oriented | ❌ No connection |
 | Reliability | ✔ Guaranteed delivery | ❌ Not guaranteed |
 | Speed | Slow (overhead) | Fast (minimal overhead) |
 | Examples | HTTP/S, SSH, FTP | DNS, VoIP, gaming, streaming |
 | When to Use | Accuracy | Speed |
 
----
-
-## 1.4 ⚠ Cybersecurity Essential Ports List (MEMORIZE THESE)
+### 1.4 ⚠ Cybersecurity Essential Ports List (MEMORIZE THESE)
 
 | Port | Proto | Service | Why Important |
-|------|--------|---------|----------------|
+|------|-------|---------|---------------|
 | **20/21** | TCP | FTP | Insecure; plaintext creds |
 | **22** | TCP | SSH | Secure login; brute-force target |
 | **23** | TCP | Telnet | Fully insecure |
@@ -81,31 +75,28 @@ A closed/filtered port → smaller attack surface.
 | **3389** | TCP | RDP | Remote desktop hacking |
 | **5900** | TCP | VNC | Weak remote desktop security |
 
----
-
-## 1.5 What is a Protocol?
+### 1.5 What is a Protocol?
 A **protocol** is a set of communication rules.
 
-Examples:
+**Examples:**
 - HTTP (web)
 - DNS (names → IP)
 - SSH (secure login)
 - TCP/UDP (transport layer)
 
----
-# 🔍 1.6 Port Scanning (Core Cyber Skill)
+### 1.6 🔍 Port Scanning (Core Cyber Skill)
 
-## 🛠️ Popular Port Scanning Tools
+#### 🛠️ Popular Port Scanning Tools
 - **Nmap** - Most comprehensive network scanner
 - **Masscan** - Extremely fast Internet-scale scanner
 - **RustScan** - Modern, fast port scanner written in Rust
 
-## 💻 Example Command
+#### 💻 Example Command
 ```bash
 nmap -sV -O <target>
 # -sV = Service version detection
 # -O  = OS detection
-🔢 2. IPv4 Addressing: The Foundation
+2. IPv4 Addressing: The Foundation
 2.1 Why IPv4 Is Limited
 IPv4 = 32-bit addressing
 
@@ -148,7 +139,7 @@ Range	CIDR
 10.0.0.0	/8
 172.16.0.0	/12
 192.168.0.0	/16
-⚠️ 3. The IPv4 Crisis & Solutions (NAT & IPv6)
+3. IPv4 Crisis & Solutions (NAT & IPv6)
 3.1 NAT — The Band-Aid Solution
 ❌ Problem:
 Not enough IPv4 addresses
@@ -178,7 +169,7 @@ Built-in security features
 
 Cybersecurity Note: Professionals must understand both IPv4 and IPv6.
 
-💻 4. Binary & Decimal Conversion: The Language of Machines
+4. Binary & Decimal Conversion: The Language of Machines
 4.1 IPv4 = 4 Octets (8 bits each)
 Example: 192.168.1.10
 
@@ -201,7 +192,7 @@ Example: Convert 11000000 to Decimal
 
 text
 128 + 64 = 192
-🎯 5. Subnetting: Designing Secure Networks
+5. Subnetting: Designing Secure Networks
 🛡️ Why Subnetting Matters:
 Controls traffic
 
