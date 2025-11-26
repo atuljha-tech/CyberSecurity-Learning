@@ -91,13 +91,6 @@ A **protocol** is a set of communication rules.
 - **Masscan** - Extremely fast Internet-scale scanner
 - **RustScan** - Modern, fast port scanner written in Rust
 
-#### 💻 Example Command
-```bash
-nmap -sV -O <target>
-# -sV = Service version detection
-# -O  = OS detection
-## 2. IPv4 Addressing: The Foundation
-
 ### 2.1 Why IPv4 Is Limited
 - **IPv4 = 32-bit addressing**
 - **Total = 4.3 billion addresses** (not enough for modern internet)
