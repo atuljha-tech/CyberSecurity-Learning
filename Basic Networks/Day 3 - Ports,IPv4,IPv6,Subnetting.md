@@ -96,149 +96,63 @@ A **protocol** is a set of communication rules.
 nmap -sV -O <target>
 # -sV = Service version detection
 # -O  = OS detection
-2. IPv4 Addressing: The Foundation
-2.1 Why IPv4 Is Limited
-IPv4 = 32-bit addressing
+## 2. IPv4 Addressing: The Foundation
 
-Total = 4.3 billion addresses (not enough for modern internet)
+### 2.1 Why IPv4 Is Limited
+- **IPv4 = 32-bit addressing**
+- **Total = 4.3 billion addresses** (not enough for modern internet)
 
-2.2 Classful Addressing (Old System)
-Class	Range	Default Mask	Use
-A	1.0.0.0 – 126.255.255.255	/8	Big networks
-B	128.0.0.0 – 191.255.255.255	/16	Medium networks
-C	192.0.0.0 – 223.255.255.255	/24	Small networks
-D	224.0.0.0 – 239.255.255.255	N/A	Multicast
-E	240.0.0.0 – 255.255.255.255	N/A	Experimental
-2.3 CIDR (Modern System)
+### 2.2 Classful Addressing (Old System)
+
+| Class | Range | Default Mask | Use |
+|-------|-------|--------------|-----|
+| A | 1.0.0.0 – 126.255.255.255 | /8 | Big networks |
+| B | 128.0.0.0 – 191.255.255.255 | /16 | Medium networks |
+| C | 192.0.0.0 – 223.255.255.255 | /24 | Small networks |
+| D | 224.0.0.0 – 239.255.255.255 | N/A | Multicast |
+| E | 240.0.0.0 – 255.255.255.255 | N/A | Experimental |
+
+### 2.3 CIDR (Modern System)
 CIDR replaced classful addressing with more flexible approach.
 
-🔧 CIDR Notation Examples:
-/24 = 255.255.255.0
+#### 🔧 CIDR Notation Examples:
+- **/24** = 255.255.255.0
+- **/25** = 255.255.255.128
+- **/27** = 255.255.255.224
+- **/28** = 255.255.255.240
 
-/25 = 255.255.255.128
+#### ✅ CIDR Benefits:
+- No wasted IPs
+- Efficient routing
+- Required for subnetting
 
-/27 = 255.255.255.224
+### 2.4 Special IP Ranges
 
-/28 = 255.255.255.240
+#### 🔁 Loopback Address
+- **127.0.0.1** → Test your own system
 
-✅ CIDR Benefits:
-No wasted IPs
-
-Efficient routing
-
-Required for subnetting
-
-2.4 Special IP Ranges
-🔁 Loopback Address
-127.0.0.1 → Test your own system
-
-🏠 Private IP Ranges
+#### 🏠 Private IP Ranges
 Used inside networks (LAN)
 
-Range	CIDR
-10.0.0.0	/8
-172.16.0.0	/12
-192.168.0.0	/16
-3. IPv4 Crisis & Solutions (NAT & IPv6)
-3.1 NAT — The Band-Aid Solution
-❌ Problem:
+| Range | CIDR |
+|-------|------|
+| 10.0.0.0 | /8 |
+| 172.16.0.0 | /12 |
+| 192.168.0.0 | /16 |
+
+---
+
+## 3. IPv4 Crisis & Solutions (NAT & IPv6)
+
+### 3.1 NAT — The Band-Aid Solution
+
+#### ❌ Problem:
 Not enough IPv4 addresses
 
-✅ Solution:
+#### ✅ Solution:
 Use private IPs + NAT
 
-🔄 NAT Translation:
-vbnet
+#### 🔄 NAT Translation:
+```vbnet
 Private IP → Public IP (outbound)
 Public IP  → Private IP (inbound)
-🛡️ Benefits (Cybersecurity):
-Hides internal network
-
-Reduces attack exposure
-
-Conserves IPv4 address usage
-
-3.2 IPv6 — The Permanent Solution
-128-bit addressing
-
-2^128 possible addresses (practically unlimited)
-
-No need for NAT
-
-Built-in security features
-
-Cybersecurity Note: Professionals must understand both IPv4 and IPv6.
-
-4. Binary & Decimal Conversion: The Language of Machines
-4.1 IPv4 = 4 Octets (8 bits each)
-Example: 192.168.1.10
-
-4.2 Bit Place Values
-text
-128  64  32  16  8  4  2  1
-4.3 Decimal → Binary Conversion
-Example: Convert 155 to Binary
-
-makefile
-155 - 128 = 27  (1)
-27 - 16   = 11  (1)
-11 - 8    = 3   (1)
-3 - 2     = 1   (1)
-1 - 1     = 0   (1)
-Result: 10011011
-
-4.4 Binary → Decimal Conversion
-Example: Convert 11000000 to Decimal
-
-text
-128 + 64 = 192
-5. Subnetting: Designing Secure Networks
-🛡️ Why Subnetting Matters:
-Controls traffic
-
-Enhances security
-
-Reduces broadcast noise
-
-Efficient IP allocation
-
-🔥 Practical Subnetting Example
-Scenario:
-Network: 192.168.1.0/24
-
-Need: 5 subnets
-
-Step 1 — Convert Mask to Binary
-255.255.255.0
-Binary: 11111111.11111111.11111111.00000000
-
-Network bits: 24
-
-Host bits: 8
-
-Step 2 — Borrow Host Bits
-Need 5 subnets → 2^3 = 8 (≥ 5)
-Borrow 3 bits
-
-Step 3 — New Subnet Mask
-Borrowed bits → 11100000
-128 + 64 + 32 = 224
-
-New mask: 255.255.255.224
-CIDR: /27
-Hosts per subnet: 2^5 - 2 = 30
-
-Step 4 — Find Increment
-text
-256 - 224 = 32
-Step 5 — All Possible Subnets (8 Total)
-Network	Host Range	Broadcast
-192.168.1.0	1–30	31
-192.168.1.32	33–62	63
-192.168.1.64	65–94	95
-192.168.1.96	97–126	127
-192.168.1.128	129–158	159
-192.168.1.160	161–190	191
-192.168.1.192	193–222	223
-192.168.1.224	225–254	255
-Network Fundamentals & Cybersecurity | Port Scanning • IPv4 • Subnetting
