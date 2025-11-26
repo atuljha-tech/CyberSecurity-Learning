@@ -149,3 +149,43 @@ Use private IPs + NAT
 ```vbnet
 Private IP → Public IP (outbound)
 Public IP  → Private IP (inbound)
+
+# 🛡️ Benefits (Cybersecurity):
+- **Hides internal network** - Masks internal IP structure from external visibility
+- **Reduces attack exposure** - Limits direct access to internal devices
+- **Conserves IPv4 address usage** - Allows multiple devices to share one public IP
+
+---
+
+## 3.2 IPv6 — The Permanent Solution
+
+### 🌟 Key Features:
+- **128-bit addressing**
+- **2^128 possible addresses** (practically unlimited)
+- **No need for NAT**
+- **Built-in security features** (IPsec mandatory)
+
+> **🔒 Cybersecurity Note:** Professionals must understand both IPv4 and IPv6 for comprehensive network security.
+
+---
+
+## 4. Binary & Decimal Conversion: The Language of Machines
+
+### 4.1 IPv4 = 4 Octets (8 bits each)
+**Example:** `192.168.1.10`
+
+### 4.2 Bit Place Values
+128 64 32 16 8 4 2 1
+
+text
+
+### 4.3 Decimal → Binary Conversion
+**Example:** Convert 155 to Binary
+
+```makefile
+155 - 128 = 27  (1)
+27 - 16   = 11  (1)
+11 - 8    = 3   (1)
+3 - 2     = 1   (1)
+1 - 1     = 0   (1)
+Result: 10011011
