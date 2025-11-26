@@ -84,7 +84,7 @@ A **protocol** is a set of communication rules.
 - SSH (secure login)
 - TCP/UDP (transport layer)
 
-# 🌐 Network Fundamentals & Cybersecurity
+---
 
 ## 2. IPv4 Addressing: The Foundation
 
@@ -143,119 +143,122 @@ Not enough IPv4 addresses
 Use private IPs + NAT
 
 #### 🔄 NAT Translation:
-```vbnet
 Private IP → Public IP (outbound)
-Public IP  → Private IP (inbound)
+Public IP → Private IP (inbound)
 
-# 🛡️ Cybersecurity Benefits of NAT
+text
 
-## 🔒 Key Security Advantages
+#### 🛡️ Cybersecurity Benefits of NAT
 - **Hides internal network from outside** - External attackers cannot see internal IP structure
 - **Reduces attack exposure** - Limits direct targeting of internal devices
 - **Conserves IPv4 addresses** - Multiple devices share single public IP
 - **Only router is exposed** - Internal devices remain hidden from internet
 
----
+### 3.2 IPv6 — The Permanent Solution
 
-# 🌟 3.2 IPv6 — The Permanent Solution
-
-## 🚀 Key Features
+#### 🚀 Key Features
 - **128-bit addressing** - Massive address space
 - **2^128 addresses** (virtually unlimited) - No more address exhaustion
 - **No NAT required** - End-to-end connectivity restored
 - **Built-in IPsec support** - Mandatory encryption capabilities
 - **Better routing performance** - Simplified network architecture
 
-## 🔐 Cybersecurity Note
+#### 🔐 Cybersecurity Note
 > **A professional must understand both IPv4 & IPv6**, especially during penetration testing & enterprise migrations.
 
 ---
 
-# 🧮 4. Binary & Decimal Conversion (Language of Machines)
+## 4. Binary & Decimal Conversion: The Language of Machines
 
-## 🧩 4.1 IPv4 = 4 Octets (8 bits each)
+### 4.1 IPv4 = 4 Octets (8 bits each)
 **Example:** `192.168.1.10`
 
-## 🔢 4.2 Bit Place Values (Left → Right)
+### 4.2 Bit Place Values (Left → Right)
 128 64 32 16 8 4 2 1
 
 text
 
-## 🔄 4.3 Decimal → Binary Conversion (Example)
+### 4.3 Decimal → Binary Conversion (Example)
 **Convert 155 to binary:**
-```makefile
-155 - 128 = 27   (1)
-27 - 16   = 11   (1)
-11 - 8    = 3    (1)
-3 - 2     = 1    (1)
-1 - 1     = 0    (1)
-✔ Final result:
-10011011
-
-🔁 4.4 Binary → Decimal Conversion (Example)
-Convert 11000000 to decimal:
+155 - 128 = 27 (1)
+27 - 16 = 11 (1)
+11 - 8 = 3 (1)
+3 - 2 = 1 (1)
+1 - 1 = 0 (1)
 
 text
+**Final result:** `10011011`
+
+### 4.4 Binary → Decimal Conversion (Example)
+**Convert 11000000 to decimal:**
 128 + 64 = 192
-🛰️ 5. Subnetting: Designing Secure Networks
-🛡️ Why Subnetting Matters (Cybersecurity View)
-Controls traffic between segments - Limits lateral movement
 
-Enhances security via isolation - Contains breaches
+text
 
-Reduces broadcast noise - Minimizes network congestion
+---
 
-Efficient IP allocation - Optimizes address space usage
+## 5. Subnetting: Designing Secure Networks
 
-🔥 PRACTICAL SUBNETTING EXAMPLE
-📋 Scenario
-Network: 192.168.1.0/24
+### 🛡️ Why Subnetting Matters (Cybersecurity View)
+- **Controls traffic between segments** - Limits lateral movement
+- **Enhances security via isolation** - Contains breaches
+- **Reduces broadcast noise** - Minimizes network congestion
+- **Efficient IP allocation** - Optimizes address space usage
 
-Need: 5 subnets
+### 🔥 PRACTICAL SUBNETTING EXAMPLE
 
-🔧 Step 1 — Convert Mask to Binary
+#### 📋 Scenario
+- **Network:** 192.168.1.0/24
+- **Need:** 5 subnets
+
+#### 🔧 Step 1 — Convert Mask to Binary
 255.255.255.0
 Binary: 11111111.11111111.11111111.00000000
 
-Network bits → 24
+text
+- Network bits → 24
+- Host bits → 8
 
-Host bits → 8
-
-🔧 Step 2 — Borrow Host Bits
-Need 5 subnets → 2^3 = 8 (≥ 5)
+#### 🔧 Step 2 — Borrow Host Bits
+Need 5 subnets → 2^3 = 8 (≥ 5)  
 Borrow 3 bits
 
-🔧 Step 3 — New Subnet Mask
-Borrowed bits: 11100000
+#### 🔧 Step 3 — New Subnet Mask
+Borrowed bits: `11100000`  
 128 + 64 + 32 = 224
 
-So mask becomes: 255.255.255.224
-CIDR = /27
+So mask becomes: `255.255.255.224`  
+CIDR = /27  
 Hosts per subnet: 2^5 - 2 = 30
 
-🔧 Step 4 — Find Increment
-text
+#### 🔧 Step 4 — Find Increment
 256 - 224 = 32
-🔧 Step 5 — List All 8 Subnets
-Network	Host Range	Broadcast
-192.168.1.0	1–30	31
-192.168.1.32	33–62	63
-192.168.1.64	65–94	95
-192.168.1.96	97–126	127
-192.168.1.128	129–158	159
-192.168.1.160	161–190	191
-192.168.1.192	193–222	223
-192.168.1.224	225–254	255
-🏁 FINAL SUMMARY (Quick Revision)
-✅ Key Takeaways
-✔ IPv4 is limited → NAT & IPv6 exist as solutions
 
-✔ CIDR enables flexible subnetting - Modern addressing approach
+text
 
-✔ Binary conversion is core for subnetting - Essential networking skill
+#### 🔧 Step 5 — List All 8 Subnets
 
-✔ Subnetting increases security & efficiency - Critical for network design
+| Network | Host Range | Broadcast |
+|---------|------------|-----------|
+| 192.168.1.0 | 1–30 | 31 |
+| 192.168.1.32 | 33–62 | 63 |
+| 192.168.1.64 | 65–94 | 95 |
+| 192.168.1.96 | 97–126 | 127 |
+| 192.168.1.128 | 129–158 | 159 |
+| 192.168.1.160 | 161–190 | 191 |
+| 192.168.1.192 | 193–222 | 223 |
+| 192.168.1.224 | 225–254 | 255 |
 
-✔ NAT hides internal network but is NOT a firewall - Important distinction
+---
 
-✔ IPv6 eliminates NAT & offers better security - Future-proof solution
+## 🏁 FINAL SUMMARY (Quick Revision)
+
+### ✅ Key Takeaways
+- ✔ IPv4 is limited → NAT & IPv6 exist as solutions
+- ✔ CIDR enables flexible subnetting - Modern addressing approach
+- ✔ Binary conversion is core for subnetting - Essential networking skill
+- ✔ Subnetting increases security & efficiency - Critical for network design
+- ✔ NAT hides internal network but is NOT a firewall - Important distinction
+- ✔ IPv6 eliminates NAT & offers better security - Future-proof solution
+
+---
