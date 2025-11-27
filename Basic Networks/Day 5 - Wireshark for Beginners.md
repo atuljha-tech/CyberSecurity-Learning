@@ -1,325 +1,278 @@
-# 🔥 WIRESHARK — Beginner to Ethical Hacker  
-### 🧠 Detailed Notes in Easy Language (Perfect for Students & Cybersecurity Learners)
+# 🦈 Wireshark Analysis Guide
+
+A comprehensive reference for network traffic analysis, attack detection, and security investigation using Wireshark.
 
 ---
 
-## 🚀 1. What Wireshark Actually Is (Simple Explanation)
+## 📋 Table of Contents
 
-**Wireshark = Packet Analyzer**
-
-A tool that **captures** and **shows** every packet travelling through your network.
-
-👉 Think of it like **CCTV for your network traffic**.
-
-### 🎯 What Cybersecurity Uses Wireshark For
-- Detecting attacks  
-  *(port scans, MITM, ARP spoofing)*  
-- Investigating malware communication  
-- Finding suspicious or unknown connections  
-- Analyzing **DNS, HTTP, TLS, ICMP** protocols  
-- Reconstructing files/credentials (if unencrypted)  
-- Understanding real-time network behaviour  
+- [Display Filters](#display-filters)
+- [Most Important Display Filters](#most-important-display-filters)
+- [Attack Indicators](#attack-indicators)
+- [Key Wireshark Tools](#key-wireshark-tools)
+- [Signs of Common Attacks](#signs-of-common-attacks)
+- [Must-Know Protocol Fields](#must-know-protocol-fields)
+- [tshark CLI Commands](#tshark-cli-commands)
 
 ---
 
-## 🧩 2. Basics of Packets (Very Important)
+## 🔍 Display Filters
 
-A **packet** = a small piece of data sent over the internet.
+Display filters are used for analysis — **95% of your work happens here**.
 
-### 📚 Layers & Packet Units
+### Examples:
 
-| Layer | Unit | Meaning |
-|-------|-------|---------|
-| **L2 — Data Link** | Frame | Data between **MAC → MAC** |
-| **L3 — Network** | Packet | Data between **IP → IP** |
-| **L4 — Transport** | TCP Segment / UDP Datagram | Uses ports (80, 443, 53...) |
-
-### 🔑 Important Terms  
-- **MAC Address** → Unique ID of your network card  
-- **IP Address** → Identifies your device in a network  
-- **Port** → Logical channel (Ex: Port 80 = HTTP)  
-
----
-
-## 🛰 3. Capture Modes (Super Important for Hacking)
-
-### 🟦 **1) Promiscuous Mode**
-- Captures **all packets your NIC can see**, not only yours  
-- Works well on **wired networks**  
-
-### 🟧 **2) Monitor Mode (Wi-Fi Hacking)**
-Captures **raw wireless frames**, including:  
-- Beacons  
-- Probe requests  
-- Deauthentication frames  
-
-👉 Used heavily in Wi-Fi hacking tools.
-
----
-
-## 🧪 4. Capture Filters vs Display Filters
-
-### 🟩 **Capture Filters (Before Capture)**
-Use when you want to **capture only specific traffic**.
-
-✔ Faster  
-✔ Saves storage  
-✔ Skips unwanted packets  
-
-**Examples:**
-```c
-tcp
-udp port 53
-host 192.168.1.10
-port 80
-🟦 Display Filters (After Capture)
-Used for analysis.
-Most important for hacking.
-
-Examples:
-
-c
-Copy code
+```
 http
 dns.qry.name == "google.com"
 tcp.flags.syn == 1 && tcp.flags.ack == 0
 ip.addr == 8.8.8.8
-🔑 Important Terms
-BPF Syntax → Capture filter language
+```
 
-Display Filter Language → Wireshark’s analysis filter language
+---
 
-📡 5. Most Important Display Filters
-🌐 General Traffic
-c
-Copy code
+## 🌐 Most Important Display Filters
+
+### General Traffic
+
+```
 ip
 tcp
 udp
 icmp
-What they reveal:
+```
 
-tcp → connections, scans, flags
+**Why these matter:**
+- `tcp` → scans & flags
+- `udp` → DNS, DHCP, malware
+- `icmp` → ping sweeps
 
-udp → DNS/DHCP/malware traffic
+### 🧭 DNS Analysis
 
-icmp → ping sweeps & reconnaissance
-
-🧭 DNS Analysis
-c
-Copy code
+```
 dns
 dns.flags.response == 0
 dns.qry.name contains "example"
-dns.qry.type == 16      // TXT record
-Why important?
+dns.qry.type == 16
+```
 
-Malware uses DNS tunneling
+**Why DNS matters:**
+- Malware uses DNS tunneling
+- Systems leak domain info
+- TXT records used for data hiding
 
-PCs leak domain info
+### 🌍 HTTP & HTTPS
 
-TXT records used for hidden data
-
-Terms:
-
-DNS Query: "What is the IP of google.com?"
-
-DNS Response: "Here is the IP."
-
-🌍 HTTP & HTTPS
-c
-Copy code
+```
 http
 http.request.method == "GET"
 http.request.method == "POST"
-GET → retrieving data
+```
 
-POST → uploading data (logins, forms)
+**Use cases:**
+- `GET` → retrieving pages
+- `POST` → logins, forms, uploads
 
-🔐 TLS (Encrypted Traffic)
-c
-Copy code
+### 🔐 TLS (Encrypted Traffic)
+
+```
 tls
 tls.handshake.type == 1   // ClientHello
 tls.handshake.type == 2   // ServerHello
-Why analyze TLS?
+```
 
-See domains using SNI
+**Why analyze TLS:**
+- See domains using SNI
+- Detect malware using HTTPS
 
-Detect malware using HTTPS
+---
 
-Term:
-SNI (Server Name Indication): shows which domain the client wants even when encrypted.
+## 🚨 Attack Indicators
 
-🚨 6. Attack Indicators (Very Important)
-🛑 A) Port Scanning
-c
-Copy code
+### 🛑 Port Scanning
+
+```
 tcp.flags.syn == 1 && tcp.flags.ack == 0
-Signs:
+```
 
-Many SYN packets
+**Signs:**
+- Many SYN packets
+- No complete handshake
 
-Fast port sweeps
+### 🎭 ARP Spoofing / MITM
 
-📝 SYN packet = 1st step of TCP handshake
-
-🕵️‍♂️ B) ARP Spoofing / MITM
-c
-Copy code
+```
 arp.opcode == 2
-Signs:
+```
 
-Same IP → different MAC
+**Signs:**
+- Same IP → different MAC
+- Many ARP replies
 
-Many ARP replies
+### 🛰 Malware Beaconing
 
-Terms:
-
-MITM: attacker sits between victim & router
-
-ARP: maps IP → MAC
-
-👾 C) Malware Beaconing
-c
-Copy code
+```
 ip.addr == <suspicious-ip>
-Signs:
+```
 
-Small repeated packets
+**Signs:**
+- Repeated small packets
+- Fixed time intervals
 
-Exact time intervals
+### 📤 Data Exfiltration
 
-Usually TLS/UDP
-
-📤 D) Data Exfiltration
-c
-Copy code
+```
 frame.len > 1500
 ip.dst != 192.168.0.0/16
-Signs:
+```
 
-Large outbound data
+**Signs:**
+- Large outbound data
+- To foreign/unusual servers
 
-To foreign countries
+---
 
-Over HTTPS (common)
+## 🧰 Key Wireshark Tools
 
-🧰 7. Key Wireshark Tools (Explained Simply)
-🔍 1) Follow Stream
-Reconstructs:
+### 🔍 1) Follow Stream
 
-HTTP sessions
+**Reconstructs:**
+- HTTP sessions
+- DNS conversations
+- TLS handshake
+- Chat messages (if unencrypted)
 
-DNS conversations
+### 📊 2) Protocol Hierarchy
 
-TLS handshake
+**Shows percentage of protocols.**
 
-Chat messages (if unencrypted)
+**Useful to detect:**
+- Rare protocols
+- Malware traffic patterns
 
-📊 2) Protocol Hierarchy
-Shows percentage of protocols.
-Useful to detect:
+### 🔎 3) Conversations
 
-Rare protocols
+**Lists:**
+- Source & Destination IPs
+- Packet count
+- Data transferred
 
-Malware traffic patterns
+**Helps detect:**
+- Scanning
+- Suspicious hosts
 
-🔎 3) Conversations
-Lists:
+### 📈 4) IO Graphs
 
-Source & Destination IPs
+**Useful for:**
+- Attack spikes
+- Beaconing patterns
+- Upload/download bursts
 
-Packet count
+### 📁 5) Export Objects
 
-Data transferred
+**Extract files from:**
+- HTTP
+- SMB
+- FTP
 
-Helps detect:
+**Helpful for:**
+- Recovering malware samples
+- Downloaded images
+- Attachments
 
-Scanning
+---
 
-Suspicious hosts
+## ⚔️ Signs of Common Attacks
 
-📈 4) IO Graphs
-Useful for:
+### 🔥 Port Scanning
 
-Attack spikes
+- Lots of SYN packets
+- No full handshake
+- Ports changing rapidly
 
-Beaconing patterns
+### 🎭 ARP Spoofing / MITM
 
-Upload/download bursts
+- Router IP → different MAC
+- Burst of ARP replies
 
-📁 5) Export Objects
-Extract files from:
+### 📡 Ping Sweep
 
-HTTP
+- Many ICMP Echo Requests
+- From 1 source → many IPs
 
-SMB
+### 🛰 DNS Tunneling
 
-FTP
+- Large DNS traffic
+- Weird long subdomains
+- Abuse of TXT records
 
-Helpful for:
+### 👾 Malware Beaconing
 
-Recovering malware samples
+- Same timestamp intervals
+- Small data packets
 
-Downloaded images
+### 🏴 Data Exfiltration
 
-Attachments
+- Massive outbound data
+- To unknown servers
+- Often hidden in HTTPS
 
-⚔️ 8. Signs of Common Attacks (Easy Explanation)
-🔥 Port Scanning
-Lots of SYN packets
+---
 
-No full handshake
+## 📊 Must-Know Protocol Fields
 
-Ports changing rapidly
+| Protocol | Field | Meaning | Purpose |
+|----------|-------|---------|---------|
+| **ARP** | `arp.src.ip` / `arp.dst.ip` | Who is asking who | Detect spoofing |
+| **DNS** | `dns.qry.name` | Domain requested | Malware tunneling |
+| **HTTP** | `http.request.method` | GET/POST | Credentials |
+| **TCP** | `tcp.flags` | SYN/ACK/RST/FIN | Scanning & attacks |
+| **TLS** | `tls.handshake.type` | Hello types | Analyze encrypted traffic |
+| **ICMP** | `icmp.type` | Ping request/reply | Recon activity |
 
-🎭 ARP Spoofing / MITM
-Router IP → different MAC
+---
 
-Burst of ARP replies
+## 🖥 tshark (CLI Wireshark)
 
-📡 Ping Sweep
-Many ICMP Echo Requests
+**tshark = Wireshark in terminal (useful for automation).**
 
-From 1 source → many IPs
+### 🔧 Useful Commands
 
-🛰 DNS Tunneling
-Large DNS traffic
+```bash
+# Live capture
+tshark -i eth0
 
-Weird long subdomains
+# Read capture file
+tshark -r file.pcapng
 
-Abuse of TXT records
+# Filter DNS packets
+tshark -r file.pcapng -Y "dns"
 
-👾 Malware Beaconing
-Same timestamp intervals
+# Show TCP conversations
+tshark -z conv,tcp -r file.pcapng
 
-Small data packets
+# Extract DNS domains
+tshark -T fields -e dns.qry.name -r file.pcapng
+```
 
-🏴 Data Exfiltration
-Massive outbound data
+---
 
-To unknown servers
+## 📝 Quick Tips
 
-Often hidden in HTTPS
+- **Start broad, filter down** — Begin with protocol-level filters, then narrow to specific fields
+- **Use Follow Stream** — Essential for understanding context in conversations
+- **Check time deltas** — Look for patterns in timing (beaconing, periodic connections)
+- **Export objects** — Always check for downloadable files in HTTP traffic
+- **Compare baselines** — Know what normal traffic looks like in your environment
 
-🧪 9. MUST KNOW Protocol Fields (Explained)
-Protocol	Field	Meaning	Purpose
-ARP	arp.src.ip / arp.dst.ip	Who is asking who	Detect spoofing
-DNS	dns.qry.name	Domain requested	Malware tunneling
-HTTP	http.request.method	GET/POST	Credentials
-TCP	tcp.flags	SYN/ACK/RST/FIN	Scanning & attacks
-TLS	tls.handshake.type	Hello types	Analyze encrypted traffic
-ICMP	icmp.type	Ping request/reply	Recon activity
+---
 
-🖥 10. tshark CLI (Command-Line Wireshark)
-tshark = Wireshark in terminal (useful for automation).
+## 🔗 Additional Resources
 
-🔧 Useful Commands
-bash
-Copy code
-tshark -i eth0                        # Live capture
-tshark -r file.pcapng                 # Read capture file
-tshark -r file.pcapng -Y "dns"        # Filter DNS packets
-tshark -z conv,tcp -r file.pcapng     # Show TCP conversations
-tshark -T fields -e dns.qry.name      # Extract DNS domains
+- [Wireshark Official Documentation](https://www.wireshark.org/docs/)
+- [Wireshark Display Filter Reference](https://www.wireshark.org/docs/dfref/)
+- [Sample Capture Files](https://wiki.wireshark.org/SampleCaptures)
+
+---
+
+**Happy Hunting! 🦈**
