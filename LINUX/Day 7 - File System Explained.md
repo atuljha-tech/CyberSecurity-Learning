@@ -1,5 +1,5 @@
 
-🐧 Linux Basics for Cybersecurity — Complete Notes
+#🐧 Linux Basics for Cybersecurity — Complete Notes
 A structured and beginner-friendly guide for hackers, pentesters & cybersecurity learners.
 ⏩ 0:00 — Introduction
 Linux is the foundation of cybersecurity. Every cybersecurity tool (Metasploit, Nmap, Wireshark CLI, Hydra, Nikto, etc.) works best on Linux-based systems.
