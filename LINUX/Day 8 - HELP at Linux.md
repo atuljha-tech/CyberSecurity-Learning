@@ -36,7 +36,7 @@ Cyber experts rely heavily on the terminal to:
 - **fish** – Modern, user-friendly shell
 
 Check your current shell:
-```bash
+```bash```
 echo $SHELL
 🧪 2. ps Command (Process Status)
 ps displays running processes. Extremely important for:
