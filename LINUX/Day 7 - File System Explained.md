@@ -1,238 +1,272 @@
-# 🐧 Linux Terminal — Cybersecurity Notes
+# 🐧 Linux File System & Essential Commands — Complete Notes
 
-## 📌 Overview
-This document teaches you how to understand the Linux terminal deeply, use fundamental system-inspection commands, and retrieve help/documentation — all of which are crucial for:
-
-- **Cybersecurity**
-- **Forensics**
-- **Privilege Escalation**
-- **System Auditing**
-- **Incident Response**
+A clean, structured README-style document based on your timestamps.
 
 ---
 
-## 🧭 1. Getting to Know the Linux Terminal
+## 📌 1. `whoami` (1:39)
 
-### ✔ What is the Terminal?
-The terminal is a text-based interface used for:
-- Issuing commands
-- Managing files, processes, networks, and users
-- Performing automation, forensics, and security operations
+**Purpose:** Shows which user is currently logged in.
 
-### ✔ Why Cybersecurity Needs the Terminal
-Cyber experts rely heavily on the terminal to:
-- Inspect system activity
-- Detect intrusions (logs, processes, open ports)
-- Perform privilege escalation
-- Navigate servers without GUI
-- Automate security scripts
+```
+whoami
+```
 
-### ✔ Shells You Should Know
-- **bash** – Default shell in most Linux distros
-- **zsh** – Enhanced shell with better completion
-- **sh** – Lightweight POSIX shell
-- **fish** – Modern, user-friendly shell
+Useful for checking if you're root or a normal user.
 
-**Check your current shell:**
-```bash```
-echo $SHELL
-🧪 2. ps Command (Process Status)
-ps displays running processes. Extremely important for:
+---
 
-Malware detection
+## 📌 2. 10‑Second Review (2:02)
 
-Reverse engineering
+* Linux is a **multi-user**, **multi-tasking OS**.
+* Everything is structured inside the **Linux File System hierarchy**.
+* Commands interact with files/directories.
 
-Incident response
+---
 
-🔹 Basic Usage
-bash
-ps
-🔹 View all running processes
-bash
-ps aux
-a → all users
+## 📌 3. Root of the File System `/` (2:28)
 
-u → user-friendly format
+* `/` is the **topmost directory**.
+* Everything begins from here.
+* All other directories are inside `/`.
 
-x → include background/daemon processes
+```
+/
+├── bin
+├── etc
+├── home
+├── lib
+├── usr
+└── ...
+```
 
-🔹 Check for malicious activity
-bash
-ps aux | grep python
-ps aux | grep crypto
-🔹 Process tree (detects abnormal parent–child processes)
-bash
-ps axjf
-⚡ 3. Essential Reconnaissance Commands
-These are the core Linux reconnaissance commands every cybersecurity learner MUST know.
+---
 
-🆘 4. Getting Help in Linux (MAN & -h)
-✔ man — Manual Pages
-Read detailed command documentation:
+## 📌 4. `clear` (2:45)
 
-bash
-man ls
-man ps
-man ip
-Exit → Press q.
+Clears the terminal screen.
 
-✔ Quick Help (-h, --help)
-bash
-ls --help
-ip -h
-✔ whatis — One-line description
-bash
-whatis ssh
-✔ apropos — Search by keyword
-bash
-apropos network
-apropos user
-Very useful in hacking labs when you don't know the exact command!
+```
+clear
+```
 
-🛠 5. Essential Cybersecurity Commands (Detailed)
-These commands help with system recon, privilege escalation, defense, and forensics.
+Shortcut: `Ctrl + L`
 
-🔍 5.1 User & System Info Commands
-🔹 id — Show user identity info
-bash
-id
-Shows:
+---
 
-UID
+## 📌 5. Everything is a File!! (3:03)
 
-GID
+* In Linux, **files, folders, devices, processes → all treated as files**.
+* Even hardware like disks, keyboard, etc.
 
-Groups
+Examples:
 
-Used in privilege escalation.
+* `/dev/sda` → hard disk
+* `/dev/null` → black hole file
 
-🔹 hostname — System hostname
-bash
-hostname
-Used in system enumeration during breaches.
+---
 
-🔹 uname — Kernel and OS info
-bash
-uname
-Common flags:
+## 📌 6. `/bin` (3:40)
 
-bash
-uname -r   # kernel version
-uname -a   # full system info
-Extremely important for kernel exploit research.
+Contains **essential commands** needed for basic system usage.
+Examples:
 
-🌐 5.2 Network Commands
-🔹 ifconfig (old tool)
-bash
-ifconfig
-Shows:
+* `ls`
+* `cp`
+* `mv`
+* `cat`
+* `rm`
 
-IP address
+These commands load before the OS fully boots.
 
-MAC address
+---
 
-Interface status
+## 📌 7. `cat` (4:49)
 
-🔹 ip (modern replacement for ifconfig)
-bash
-ip a      # show interfaces
-ip r      # routing table
-ip link   # hardware link info
-🔹 netstat (deprecated, but common in CTFs)
-bash
-netstat -tulnp
-Shows:
+Reads and displays file content.
 
-Open ports
+```
+cat filename.txt
+```
 
-Listening services
+---
 
-Current connections
+## 📌 8. `cp` (5:43)
 
-🔹 ss — Modern netstat
-bash
-ss -tulnp
-Faster and more accurate.
+Copies files and directories.
 
-⚙ 5.3 Process & System Inspection
-🔹 ps — Process status
-(Covered above)
+```
+cp file1 file2
+cp -r dir1 dir2
+```
 
-🔹 who — Logged-in users
-bash
-who
-Shows:
+---
 
-Local sessions
+## 📌 9. `rm` (7:12)
 
-Remote SSH logins
+Deletes files or directories.
 
-Used to detect unauthorized access.
+```
+rm file.txt
+rm -r folder
+```
 
-🔹 env — Environment variables
-bash
-env
-Used to detect:
+⚠️ Permanent deletion — no recycle bin.
 
-PATH manipulation
+---
 
-Malware persistence
+## ⚠️ 10. "I deleted a command!" (7:25)
 
-Misconfigurations
+* If you delete something from `/bin` or `/usr/bin`, system commands can stop working.
+* Never remove system binaries.
 
-💾 5.4 Hardware & Storage Commands
-🔹 lsblk — Block devices
-bash
-lsblk
-Shows:
+---
 
-Disks
+## 📌 11. `/sbin` (8:48)
 
-Partitions
+Contains **system administration binaries**.
+Only root can run most of these.
+Examples:
 
-Mount points
+* `adduser`
+* `mount`
+* `shutdown`
 
-Used in forensic analysis.
+---
 
-🔹 lsusb — USB devices
-bash
-lsusb
-Useful for:
+## 📌 12. `adduser` (9:27)
 
-USB malware investigation
+Creates a new user.
 
-Hardware enumeration
+```
+sudo adduser atul
+```
 
-🔹 lsof — Open files & ports
-bash
-lsof
-lsof -i   # list network connections
-Great for:
+---
 
-Detecting backdoors
+## 📌 13. `/usr` (10:11)
 
-Tracing suspicious processes
+The largest directory.
+Contains:
 
-🏁 Summary Table (Quick Revision)
-Command	Purpose	Cybersecurity Use
-ps	Show processes	Detect malware/backdoors
-man	Manual pages	Learn commands/features
-apropos	Find commands	Recon during tasks
-id	User identity	Privilege escalation
-hostname	System name	System enumeration
-uname	Kernel info	Kernel exploit research
-ifconfig / ip	Network info	IP/MAC/interface discovery
-netstat / ss	Ports & connections	Detect open ports/backdoors
-who	Logged-in users	Unauthorized access detection
-env	Environment variables	Persistence detection
-lsblk	Storage devices	Disk forensics
-lsusb	USB devices	Hardware investigation
-lsof	Open files	Trace suspicious processes
-📚 Resources
-Practice: Try these commands in a Linux VM or Docker container
+* `/usr/bin` → Most user commands
+* `/usr/lib` → Libraries
+* `/usr/share` → Shared data
 
-CTFs: Use these for enumeration in platforms like TryHackMe, HackTheBox
+---
 
-Documentation: Always check man pages for deeper understanding
+## 📌 14. `which` (11:32)
 
+Shows the path of a command.
+
+```
+which ls
+```
+
+Output example:
+
+```
+/bin/ls
+```
+
+---
+
+## 📌 15. `/boot` (12:47)
+
+Contains bootloader files:
+
+* Kernel
+* GRUB config
+
+---
+
+## 📌 16. `/var` (12:52)
+
+Stores **variable data** like logs.
+Examples:
+
+* `/var/log`
+* `/var/cache`
+
+---
+
+## 📌 17. `/tmp` (12:58)
+
+Temporary files.
+Automatically deleted.
+
+---
+
+## 📌 18. `/lib` (13:04)
+
+Shared libraries needed by binaries.
+Equivalent to Windows `.dll` files.
+
+---
+
+## 📌 19. `/home` (13:12)
+
+Contains personal user directories.
+
+```
+/home/atul
+/home/rahul
+```
+
+User files, downloads, configs stay here.
+
+---
+
+## 📌 20. `/root` (13:40)
+
+Home directory of the **root user**.
+Not the same as `/`.
+
+---
+
+## 📌 21. `/dev` (14:10)
+
+Device files.
+Examples:
+
+* `/dev/sda` → disk
+* `/dev/tty` → terminal
+
+---
+
+## 📌 22. `/etc` (15:33)
+
+**Configuration files**.
+Examples:
+
+* `/etc/passwd`
+* `/etc/hosts`
+* `/etc/ssh/ssh_config`
+
+---
+
+## 📌 23. `/mnt` and `/media` (17:11)
+
+Used for mounting.
+
+* `/mnt` → manual mounts by admin
+* `/media` → auto-mounted devices like USB
+
+---
+
+## 🏁 Final Challenge Summary (19:24)
+
+This README gives you:
+
+* Full directory-by-directory explanation
+* Command references
+* Clean, structured Linux filesystem understanding
+
+If you'd like, I can also:
+
+* Add diagrams
+* Add advanced notes
+* Create a printable PDF
+* Create flashcards
+
+Just tell me! 🚀
