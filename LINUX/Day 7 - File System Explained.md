@@ -36,7 +36,7 @@ Cyber experts rely heavily on the terminal to:
 **Check your current shell:**
 ```bash```
 echo $SHELL
-##🧪 2. ps Command (Process Status)
+🧪 2. ps Command (Process Status)
 ps displays running processes. Extremely important for:
 
 Malware detection
