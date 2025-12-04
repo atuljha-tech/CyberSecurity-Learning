@@ -1,257 +1,255 @@
-🐧 Linux Terminal — Cybersecurity Notes (Detailed README)
-📌 Overview
+# 🐧 Linux Terminal — Cybersecurity Notes (Detailed README)
 
-This section teaches you how to understand the Linux terminal deeply, use fundamental system-inspection commands, and learn how to retrieve help/documentation—all of which are crucial for cybersecurity, forensics, privilege escalation, and system auditing.
+## 📌 Overview
+This document teaches you how to understand the Linux terminal deeply, use fundamental system-inspection commands, and retrieve help/documentation — all of which are crucial for:
 
-🧭 1. Getting to Know the Linux Terminal
-✔ What is the Terminal?
+- Cybersecurity  
+- Forensics  
+- Privilege Escalation  
+- System Auditing  
+- Incident Response  
 
+---
+
+# 🧭 1. Getting to Know the Linux Terminal
+
+## ✔ What is the Terminal?
 The terminal is a text-based interface used for:
 
-Issuing commands
+- Issuing commands  
+- Managing files, processes, networks, and users  
+- Performing automation, forensics, and security operations  
 
-Managing files, processes, networks, and users
-
-Performing automation, forensics, and security operations
-
-✔ Why Cybersecurity Needs the Terminal
-
+## ✔ Why Cybersecurity Needs the Terminal
 Cyber experts rely heavily on the terminal to:
 
-Inspect system activity
+- Inspect system activity  
+- Detect intrusions (logs, processes, open ports)  
+- Perform privilege escalation  
+- Navigate servers without GUI  
+- Automate security scripts  
 
-Detect intrusions (logs, processes, open ports)
-
-Perform privilege escalation
-
-Navigate servers without GUI
-
-Automate security scripts
-
-✔ Shells You Should Know
-
-bash – default shell in most Linux distros
-
-zsh – advanced shell with better completion
-
-sh – lightweight POSIX shell
-
-fish – user-friendly shell
+## ✔ Shells You Should Know
+- **bash** – Default shell in most Linux distros  
+- **zsh** – Enhanced shell with better completion  
+- **sh** – Lightweight POSIX shell  
+- **fish** – Modern, user-friendly shell  
 
 Check your current shell:
-
+```bash
 echo $SHELL
-
 🧪 2. NEW COMMAND: ps (Process Status)
+ps displays running processes.
+Extremely important for:
 
-The ps command shows running processes.
-It's extremely important for malware detection, reverse engineering, and incident response.
+Malware detection
+
+Reverse engineering
+
+Incident response
 
 🔹 Basic Usage
+bash
+Copy code
 ps
-
-
-Shows processes running under your current shell.
-
 🔹 View all running processes
+bash
+Copy code
 ps aux
+a → all users
 
+u → user-friendly format
 
-a – all users
+x → include background/daemon processes
 
-u – user-friendly format
-
-x – include background/daemon processes
-
-🔹 Check malicious activity example
-
-Look for suspicious processes:
-
+🔹 Check malicious activity
+bash
+Copy code
 ps aux | grep python
 ps aux | grep crypto
-
-🔹 See process tree (great for detecting abnormal child processes)
+🔹 Process tree (detects abnormal parent–child processes)
+bash
+Copy code
 ps axjf
-
-⚡ 3. !!! NEW COMMANDS !!! (Essential Sysadmin + Security Commands)
-
-Below are the core Linux reconnaissance commands every cybersecurity learner MUST know.
+⚡ 3. !!! NEW COMMANDS !!!
+These are the core Linux reconnaissance commands every cybersecurity learner MUST know.
 
 🆘 4. Getting Help in Linux (MAN & -h)
-✔ man — manual pages
+✔ man — Manual Pages
+Read detailed command documentation:
 
-To read detailed documentation:
-
+bash
+Copy code
 man ls
 man ps
 man ip
+Exit → Press q.
 
-
-Exit with: q
-
-✔ Quick Help (-h or --help)
-
-Shows short explanations:
-
+✔ Quick Help (-h, --help)
+bash
+Copy code
 ls --help
 ip -h
-
-✔ whatis — one-line description
+✔ whatis — One-line description
+bash
+Copy code
 whatis ssh
-
-✔ apropos — search for commands by keyword
+✔ apropos — Search by keyword
+bash
+Copy code
 apropos network
 apropos user
-
-
-Very useful in hacking labs when you don't know the exact command!
+Very useful in hacking labs when you don’t know the exact command!
 
 🛠 5. Essential Cybersecurity Commands (Detailed)
-
-Below are the commands you listed — explained in detail with security relevance.
+These commands help with system recon, privilege escalation, defense, and forensics.
 
 🔍 5.1 User & System Info Commands
 🔹 id — Show user identity info
+bash
+Copy code
 id
-
-
 Shows:
 
-UID (user ID)
+UID
 
-GID (group ID)
+GID
 
-Supplementary groups
+Groups
 
-Useful for privilege escalation.
+Used in privilege escalation.
 
 🔹 hostname — System hostname
+bash
+Copy code
 hostname
+Used in system enumeration during breaches.
 
-
-Attackers use this for enumeration during breaches.
-
-🔹 uname — Kernel and OS information
+🔹 uname — Kernel and OS info
+bash
+Copy code
 uname
-
 Common flags:
-uname -r     # kernel version
-uname -a     # EVERYTHING (kernel, OS, architecture)
 
-
-➤ Extremely important for Kernel Exploit Research.
+bash
+Copy code
+uname -r   # kernel version
+uname -a   # full system info
+Extremely important for kernel exploit research.
 
 🌐 5.2 Network Commands
 🔹 ifconfig (old tool)
+bash
+Copy code
 ifconfig
-
-
 Shows:
 
 IP address
 
 MAC address
 
-Network interface status
+Interface status
 
 🔹 ip (modern replacement for ifconfig)
-ip a      # show all interfaces
+bash
+Copy code
+ip a      # show interfaces
 ip r      # routing table
-ip link   # interface hardware info
-
-🔹 netstat (deprecated but still used in CTFs)
+ip link   # hardware link info
+🔹 netstat (deprecated, but common in CTFs)
+bash
+Copy code
 netstat -tulnp
-
-
 Shows:
 
-open ports
+Open ports
 
-listening services
+Listening services
 
-network connections
+Current connections
 
-🔹 ss (modern netstat)
+🔹 ss — Modern netstat
+bash
+Copy code
 ss -tulnp
-
-
-Much faster than netstat.
+Faster and more accurate.
 
 ⚙ 5.3 Process & System Inspection
-🔹 ps — process status
+🔹 ps — Process status
+(Covered above)
 
-(covered above)
-
-🔹 who — logged in users
+🔹 who — Logged-in users
+bash
+Copy code
 who
-
-
 Shows:
 
-current logged-in users
+Local sessions
 
-remote login sessions
-Used in incident response to detect unauthorized access.
+Remote SSH logins
 
-🔹 env — environment variables
+Used to detect unauthorized access.
+
+🔹 env — Environment variables
+bash
+Copy code
 env
-
-
 Used to detect:
 
 PATH manipulation
 
-malware persistence
+Malware persistence
 
-misconfigurations
+Misconfigurations
 
 💾 5.4 Hardware & Storage Commands
-🔹 lsblk — list block devices
+🔹 lsblk — Block devices
+bash
+Copy code
 lsblk
-
-
 Shows:
 
-disks
+Disks
 
-partitions
+Partitions
 
-mount points
-Use in forensics to inspect storage.
+Mount points
 
-🔹 lsusb — connected USB devices
+Used in forensic analysis.
+
+🔹 lsusb — USB devices
+bash
+Copy code
 lsusb
-
-
-Important for:
+Useful for:
 
 USB malware investigation
 
 Hardware enumeration
 
-🔹 lsof — list open files
+🔹 lsof — Open files & ports
+bash
+Copy code
 lsof
-lsof -i    # list network connections
-
-
+lsof -i   # list network connections
 Great for:
 
 Detecting backdoors
 
-Checking which processes use which ports
+Tracing suspicious processes
 
 🏁 Summary Table (Quick Revision)
 Command	Purpose	Cybersecurity Use
-ps	Show processes	Detect malware, rogue processes
-man	View manual pages	Learn features of commands
-apropos	Find commands	Recon when unsure
+ps	Show processes	Detect malware/backdoors
+man	Manual pages	Learn commands/features
+apropos	Find commands	Recon during tasks
 id	User identity	Privilege escalation
-hostname	System name	Enumeration
-uname	Kernel info	Find kernel exploits
-ifconfig / ip	Network info	IP, MAC, interface details
+hostname	System name	System enumeration
+uname	Kernel info	Kernel exploit research
+ifconfig / ip	Network info	IP/MAC/interface discovery
 netstat / ss	Ports & connections	Detect open ports/backdoors
-who	Logged-in users	Detect unauthorized access
-env	Environment variables	Malware persistence detection
-lsblk	Storage devices	Forensics & partitions
+who	Logged-in users	Unauthorized access detection
+env	Environment variables	Persistence detection
+lsblk	Storage devices	Disk forensics
 lsusb	USB devices	Hardware investigation
-lsof	Open files & ports	Detect suspicious processes
+lsof	Open files	Trace suspicious processes
