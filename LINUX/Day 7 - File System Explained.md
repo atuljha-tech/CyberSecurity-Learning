@@ -1,299 +1,249 @@
-# 🐧 Linux Filesystem & Commands — Cybersecurity Notes
-A complete, structured, detailed reference for beginners and cybersecurity learners.  
-Covers essential Linux commands and full filesystem hierarchy explained deeply.
+🐧 Linux Terminal — Cybersecurity Mastery Guide
+📖 Table of Contents
+Introduction
 
----
+Terminal Basics
 
-# 🔥 1. Basic Linux Commands
+Process Management
 
-## **whoami**
-Shows the current logged-in user.  
-Useful to check permissions before executing system-level commands.
+Help & Documentation
 
----
+User & System Info
 
-## **clear**
-Clears the terminal screen for better readability.
+Network Analysis
 
----
+Hardware & Storage
 
-## **cat**
-Displays file content.  
-Commonly used to read:
-- `/etc/passwd`
-- `/etc/ssh/sshd_config`
-- config files
+Quick Reference
 
----
+Resources
 
-## **cp (copy)**
-Copies files or folders.  
-Flags:
-- `-r` → recursive (required for directories)
-- `-p` → preserve permissions
+🎯 Introduction
+This guide teaches Linux terminal commands specifically for cybersecurity operations. Essential for:
 
----
+Penetration Testing 🔓
 
-## **rm (remove)**
-Deletes files or directories.  
-Dangerous flags:
-- `rm -rf /` → destroys system  
-Use with caution.
+Incident Response 🚨
 
----
+Forensic Analysis 🔍
 
-## **adduser**
-Creates a new user and sets up:
-- `/home/username`
-- permissions
-- password prompts
+System Auditing 📊
 
----
+CTF Challenges 🏴‍☠️
 
-## **which**
-Shows the path of a command’s executable.  
-Good for locating binaries and recovering deleted commands.
+🖥️ Terminal Basics
+What is the Terminal?
+A text-based interface for controlling Linux systems. Used for:
 
----
+Command execution
 
-# 🔥 2. Linux Filesystem — Deep Breakdown
+File management
 
-Linux follows the **FHS (Filesystem Hierarchy Standard)**.  
-Everything begins from the **root directory `/`**.
+Process control
 
----
+Network operations
 
-# 🗂️ Root Directory `/`
-The top-most parent of the Linux filesystem.  
-Every file or directory stems from here.
+Security automation
 
----
+Why Cybersecurity Needs the Terminal
+Direct system access
 
-# 🗂️ `/bin` — Essential User Commands
-Contains user essential programs:
-- `ls`, `cp`, `mv`, `rm`, `bash`, `cat`
+Lightweight & fast
 
-Always available even in recovery mode.
+Scriptable operations
 
----
+Remote access capability
 
-# 🗂️ `/sbin` — System/Admin Commands
-Commands used mainly by root:
-- `iptables`, `fdisk`, `mount`, `reboot`
+Granular control
 
-Normal users can’t run these without sudo.
+Shell Types
+bash
+# Check current shell
+echo $SHELL
+Shell	Purpose
+bash	Default Linux shell
+zsh	Enhanced completion
+sh	POSIX compliant
+fish	User-friendly
+🔬 Process Management
+ps — Process Status
+Shows running processes. Critical for:
 
----
+Malware detection
 
-# 🗂️ `/usr` — Installed Software (Non-essential)
-Contains apps installed by the system or user.
+Reverse engineering
 
-### `/usr/bin`
-User applications like:
-- `python`, `nmap`, `gcc`
+Incident response
 
-### `/usr/sbin`
-Admin programs not required at boot.
+Basic Usage
+bash
+ps
+ps -ef
+View All Processes
+bash
+ps aux
+a → all users
 
-### `/usr/lib`
-Libraries for `/usr/bin` and `/usr/sbin`.
+u → user-friendly format
 
-### `/usr/local`
-Manual or custom-installed software.
+x → include background processes
 
----
+Check for Malicious Activity
+bash
+ps aux | grep python
+ps aux | grep crypto
+Process Tree
+bash
+ps axjf
+ps -ef --forest
+🆘 Help & Documentation
+man — Manual Pages
+bash
+man ls
+man ps
+man ssh
+Exit with q
+
+Quick Help
+bash
+ls --help
+ip -h
+whatis — One-line Description
+bash
+whatis ssh
+apropos — Search by Keyword
+bash
+apropos network
+apropos user
+Great when you don't know the exact command
+
+👤 User & System Info
+id — User Identity
+bash
+id
+Shows:
+
+UID
+
+GID
+
+Groups
+
+Used in privilege escalation
+
+hostname — System Name
+bash
+hostname
+Used in system enumeration
+
+uname — Kernel Info
+bash
+uname -a
+uname -r   # kernel version
+Critical for kernel exploit research
+
+who — Logged-in Users
+bash
+who
+Detect unauthorized access
+
+env — Environment Variables
+bash
+env
+Find PATH manipulation and persistence
+
+🌐 Network Analysis
+ifconfig (Legacy Tool)
+bash
+ifconfig
+Shows:
+
+IP address
+
+MAC address
+
+Interface status
+
+ip (Modern Tool)
+bash
+ip a      # show interfaces
+ip r      # routing table
+ip link   # hardware info
+netstat (Deprecated but Common)
+bash
+netstat -tulnp
+Shows:
+
+Open ports
+
+Listening services
+
+Current connections
+
+ss — Modern Replacement
+bash
+ss -tulnp
+Faster and more accurate
+
+💾 Hardware & Storage
+lsblk — Block Devices
+bash
+lsblk
+Shows:
+
+Disks
+
+Partitions
+
+Mount points
+
+Used in forensic analysis
+
+lsusb — USB Devices
+bash
+lsusb
+USB malware investigation
+
+lsof — Open Files & Ports
+bash
+lsof
+lsof -i   # network connections
+Detect backdoors and trace processes
+
+🏁 Quick Reference
+Command	Purpose	Cybersecurity Use
+ps	Show processes	Detect malware/backdoors
+man	Manual pages	Learn commands
+apropos	Find commands	Reconnaissance
+id	User identity	Privilege escalation
+hostname	System name	System enumeration
+uname	Kernel info	Exploit research
+ifconfig/ip	Network info	IP/MAC discovery
+netstat/ss	Ports & connections	Backdoor detection
+who	Logged-in users	Access monitoring
+env	Environment variables	Persistence detection
+lsblk	Storage devices	Disk forensics
+lsusb	USB devices	Hardware investigation
+lsof	Open files	Process tracing
+📚 Resources
+Practice Environments
+Linux VM
+
+Docker containers
+
+Online Linux terminals
+
+Learning Platforms
+TryHackMe
+
+HackTheBox
+
+OverTheWire
+
+Documentation
+Always check man pages
+
+Linux documentation project
+
+Command cheat sheets
 
-# 🗂️ `/boot` — Bootloader & Kernel
-Contains:
-- Linux kernel (`vmlinuz`)
-- initramfs
-- GRUB bootloader configs
-
-Without `/boot`, the system cannot start.
-
----
-
-# 🗂️ `/lib` — Essential Libraries
-Libraries needed by `/bin` and `/sbin`.  
-Includes:
-- libc
-- kernel modules
-
-Corruption here breaks the OS.
-
----
-
-# 🗂️ `/home` — User Home Directories
-Personal directories:
-/home/atul
-/home/john
-
-yaml
-Copy code
-Stores documents, SSH keys, configs, downloads.
-
----
-
-# 🗂️ `/root` — Superuser’s Home
-Home directory for **root** user.  
-Stores sensitive admin data.
-
----
-
-# 🗂️ `/etc` — Configuration Brain of Linux
-Contains system-wide config files:
-- `/etc/passwd`
-- `/etc/shadow`
-- `/etc/ssh/sshd_config`
-- `/etc/hosts`
-- `/etc/fstab`
-
-Critical for cybersecurity, system hardening, and troubleshooting.
-
----
-
-# 🗂️ `/dev` — Devices as Files
-Represents hardware as files:
-- `/dev/sda` → HDD/SSD
-- `/dev/tty` → terminal
-- `/dev/random`
-
-Linux treats **everything as a file**.
-
----
-
-# 🗂️ `/var` — Variable Data & Logs
-Contains:
-- `/var/log/` (system logs)
-- mail
-- web server files
-- databases
-- caches
-
-Important for digital forensics & monitoring.
-
----
-
-# 🗂️ `/tmp` — Temporary Files
-Used for:
-- app temp data
-- caches
-- session files
-
-Often cleared automatically on reboot.  
-Attackers frequently drop temporary payloads here.
-
----
-
-# 🗂️ `/mnt` — Temporary Mount Point
-Used by administrators to manually mount drives:
-mount /dev/sdb1 /mnt
-
-yaml
-Copy code
-
----
-
-# 🗂️ `/media` — Auto-Mount for USB/External Devices
-Devices like:
-- USB drives
-- CDs/DVDs
-- SD cards  
-are auto-mounted here.
-
----
-
-# 🗂️ Advanced Directories
-
-## **/proc**
-Virtual filesystem showing live system data:
-- CPU info
-- memory info
-- running processes
-
-Used in forensics & malware detection.
-
----
-
-## **/sys**
-Kernel and hardware information in real time.
-
----
-
-## **/run**
-Stores runtime process data:
-- PID files
-- service states
-
----
-
-## **/srv**
-Data for system services:
-- web servers
-- databases
-- FTP
-
----
-
-## **/opt**
-Optional third-party or large software packages.
-
----
-
-# 🔥 3. Why Everything Is a File (Core Linux Philosophy)
-Linux treats:
-- hardware
-- processes
-- devices
-- kernel data  
-all as files.
-
-This makes the system:
-- simple  
-- predictable  
-- powerful  
-- easy to script  
-
----
-
-# 🔥 4. Cybersecurity Relevance
-
-### **Pentesting**
-- Find misconfigured `/etc` permissions  
-- Analyze logs `/var/log`  
-- Check user data `/home`  
-- Inspect `/proc` for hidden processes  
-
-### **Malware Analysis**
-- Malware often hides in `/tmp`  
-- Modifies `/etc` for persistence  
-- Drops binaries in `/usr/bin`  
-
-### **Digital Forensics**
-- Boot tampering in `/boot`  
-- Log analysis in `/var/log`  
-- User activity in `/home`  
-
----
-
-# 🎯 5. Directory Quick Summary
-
-| Directory | Purpose |
-|----------|---------|
-| `/bin` | Essential system commands |
-| `/sbin` | Admin commands |
-| `/etc` | Configuration files |
-| `/home` | User data |
-| `/root` | Root user home |
-| `/usr` | Installed programs |
-| `/var` | Logs & variable data |
-| `/lib` | System libraries |
-| `/boot` | Kernel & bootloader |
-| `/dev` | Hardware devices |
-| `/tmp` | Temporary files |
-| `/mnt` | Manual mounts |
-| `/media` | External media |
-
----
-
-# ✅ End of README 
