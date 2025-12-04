@@ -1,46 +1,45 @@
-# 🐧 Linux Terminal — Cybersecurity Notes (Detailed README)
+# 🐧 Linux Terminal — Cybersecurity Notes
 
 ## 📌 Overview
 This document teaches you how to understand the Linux terminal deeply, use fundamental system-inspection commands, and retrieve help/documentation — all of which are crucial for:
 
-- Cybersecurity  
-- Forensics  
-- Privilege Escalation  
-- System Auditing  
-- Incident Response  
+- **Cybersecurity**
+- **Forensics**
+- **Privilege Escalation**
+- **System Auditing**
+- **Incident Response**
 
 ---
 
-# 🧭 1. Getting to Know the Linux Terminal
+## 🧭 1. Getting to Know the Linux Terminal
 
-## ✔ What is the Terminal?
+### ✔ What is the Terminal?
 The terminal is a text-based interface used for:
 
-- Issuing commands  
-- Managing files, processes, networks, and users  
-- Performing automation, forensics, and security operations  
+- Issuing commands
+- Managing files, processes, networks, and users
+- Performing automation, forensics, and security operations
 
-## ✔ Why Cybersecurity Needs the Terminal
+### ✔ Why Cybersecurity Needs the Terminal
 Cyber experts rely heavily on the terminal to:
 
-- Inspect system activity  
-- Detect intrusions (logs, processes, open ports)  
-- Perform privilege escalation  
-- Navigate servers without GUI  
-- Automate security scripts  
+- Inspect system activity
+- Detect intrusions (logs, processes, open ports)
+- Perform privilege escalation
+- Navigate servers without GUI
+- Automate security scripts
 
-## ✔ Shells You Should Know
-- **bash** – Default shell in most Linux distros  
-- **zsh** – Enhanced shell with better completion  
-- **sh** – Lightweight POSIX shell  
-- **fish** – Modern, user-friendly shell  
+### ✔ Shells You Should Know
+- **bash** – Default shell in most Linux distros
+- **zsh** – Enhanced shell with better completion
+- **sh** – Lightweight POSIX shell
+- **fish** – Modern, user-friendly shell
 
 Check your current shell:
 ```bash
 echo $SHELL
-🧪 2. NEW COMMAND: ps (Process Status)
-ps displays running processes.
-Extremely important for:
+🧪 2. ps Command (Process Status)
+ps displays running processes. Extremely important for:
 
 Malware detection
 
@@ -50,11 +49,9 @@ Incident response
 
 🔹 Basic Usage
 bash
-Copy code
 ps
 🔹 View all running processes
 bash
-Copy code
 ps aux
 a → all users
 
@@ -62,16 +59,14 @@ u → user-friendly format
 
 x → include background/daemon processes
 
-🔹 Check malicious activity
+🔹 Check for malicious activity
 bash
-Copy code
 ps aux | grep python
 ps aux | grep crypto
 🔹 Process tree (detects abnormal parent–child processes)
 bash
-Copy code
 ps axjf
-⚡ 3. !!! NEW COMMANDS !!!
+⚡ 3. Essential Reconnaissance Commands
 These are the core Linux reconnaissance commands every cybersecurity learner MUST know.
 
 🆘 4. Getting Help in Linux (MAN & -h)
@@ -79,7 +74,6 @@ These are the core Linux reconnaissance commands every cybersecurity learner MUS
 Read detailed command documentation:
 
 bash
-Copy code
 man ls
 man ps
 man ip
@@ -87,16 +81,13 @@ Exit → Press q.
 
 ✔ Quick Help (-h, --help)
 bash
-Copy code
 ls --help
 ip -h
 ✔ whatis — One-line description
 bash
-Copy code
 whatis ssh
 ✔ apropos — Search by keyword
 bash
-Copy code
 apropos network
 apropos user
 Very useful in hacking labs when you don’t know the exact command!
@@ -107,7 +98,6 @@ These commands help with system recon, privilege escalation, defense, and forens
 🔍 5.1 User & System Info Commands
 🔹 id — Show user identity info
 bash
-Copy code
 id
 Shows:
 
@@ -121,18 +111,15 @@ Used in privilege escalation.
 
 🔹 hostname — System hostname
 bash
-Copy code
 hostname
 Used in system enumeration during breaches.
 
 🔹 uname — Kernel and OS info
 bash
-Copy code
 uname
 Common flags:
 
 bash
-Copy code
 uname -r   # kernel version
 uname -a   # full system info
 Extremely important for kernel exploit research.
@@ -140,7 +127,6 @@ Extremely important for kernel exploit research.
 🌐 5.2 Network Commands
 🔹 ifconfig (old tool)
 bash
-Copy code
 ifconfig
 Shows:
 
@@ -152,13 +138,11 @@ Interface status
 
 🔹 ip (modern replacement for ifconfig)
 bash
-Copy code
 ip a      # show interfaces
 ip r      # routing table
 ip link   # hardware link info
 🔹 netstat (deprecated, but common in CTFs)
 bash
-Copy code
 netstat -tulnp
 Shows:
 
@@ -170,7 +154,6 @@ Current connections
 
 🔹 ss — Modern netstat
 bash
-Copy code
 ss -tulnp
 Faster and more accurate.
 
@@ -180,7 +163,6 @@ Faster and more accurate.
 
 🔹 who — Logged-in users
 bash
-Copy code
 who
 Shows:
 
@@ -192,7 +174,6 @@ Used to detect unauthorized access.
 
 🔹 env — Environment variables
 bash
-Copy code
 env
 Used to detect:
 
@@ -205,7 +186,6 @@ Misconfigurations
 💾 5.4 Hardware & Storage Commands
 🔹 lsblk — Block devices
 bash
-Copy code
 lsblk
 Shows:
 
@@ -219,7 +199,6 @@ Used in forensic analysis.
 
 🔹 lsusb — USB devices
 bash
-Copy code
 lsusb
 Useful for:
 
@@ -229,7 +208,6 @@ Hardware enumeration
 
 🔹 lsof — Open files & ports
 bash
-Copy code
 lsof
 lsof -i   # list network connections
 Great for:
@@ -253,3 +231,10 @@ env	Environment variables	Persistence detection
 lsblk	Storage devices	Disk forensics
 lsusb	USB devices	Hardware investigation
 lsof	Open files	Trace suspicious processes
+📚 Resources
+Practice: Try these commands in a Linux VM or Docker container
+
+CTFs: Use these for enumeration in platforms like TryHackMe, HackTheBox
+
+Documentation: Always check man pages for deeper understanding
+
